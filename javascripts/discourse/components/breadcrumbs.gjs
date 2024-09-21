@@ -111,7 +111,10 @@ export default class BreadcrumbLinks extends Component {
             <li class="breadcrumbLinks">
               {{#if this.homePage}}
 
+              <li class="home">
 Home
+              </li>
+
 
 
 
