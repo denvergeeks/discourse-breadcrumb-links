@@ -7,7 +7,7 @@ import Category from "discourse/models/category";
 import dIcon from "discourse-common/helpers/d-icon";
 import i18n from "discourse-common/helpers/i18n";
 
-export default class Breadcrumbs extends Component {
+export default class BreadcrumbLinks extends Component {
   @service router;
 
   get homePage() {
@@ -101,14 +101,14 @@ export default class Breadcrumbs extends Component {
 
   <template>
     {{#if this.currentPage}}
-      {{bodyClass "has-breadcrumbs"}}
-      <div class="breadcrumbs">
-        <div class="breadcrumbs__container">
+      {{bodyClass "has-breadcrumbLinks"}}
+      <div class="breadcrumbLinks">
+        <div class="breadcrumbLinks__container">
 
-          <ul class="breadcrumbs__links">
+          <ul class="breadcrumbLinks__links">
 
 
-            <li class="home">
+            <li class="breadcrumbLinks_home">
               {{#if this.homePage}}
 
 Home
@@ -118,7 +118,7 @@ Home
               {{else}}
 
                 <a href="/">
-                  <span class="breadcrumbs__title">
+                  <span class="breadcrumbLinks__title">
                     {{dIcon "arrow-left"}}
                   </span>
 Home
