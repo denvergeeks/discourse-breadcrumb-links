@@ -1,13 +1,13 @@
 @if $display_on_mobile == "false" {
     @media (max-width: 1026px) {
-      .breadcrumbs,
-        #breadcrumbsContainer {
+      .breadcrumbLinks,
+        #breadcrumbLinksContainer {
             display: none !important;
         }
     }
 }
 
-.breadcrumbs {
+.breadcrumbLinks {
   background: var(--primary-low);
   border-radius: var(--d-border-radius);
   margin-bottom: 0.5rem;
@@ -47,7 +47,7 @@
   }
 }
 
-#breadcrumbsContainer {
+#breadcrumbLinksContainer {
   background: var(--primary-low);
   border-radius: var(--d-border-radius);
   margin-bottom: 0.5rem;
@@ -91,11 +91,11 @@
 
 
 
-body.has-breadcrumbs #breadcrumbsContainer,
+body.has-breadcrumbLinks #breadcrumbLinksContainer,
 li.current.topic,
-.static-login #breadcrumbsContainer,
-.has-full-page-chat #breadcrumbsContainer,
-.chat-drawer-active #breadcrumbsContainer,
-.chat-drawer-active .chat-drawer-expanded #breadcrumbsContainer {
+.static-login #breadcrumbLinksContainer,
+.has-full-page-chat #breadcrumbLinksContainer,
+.chat-drawer-active #breadcrumbLinksContainer,
+.chat-drawer-active .chat-drawer-expanded #breadcrumbLinksContainer {
   display: none;
 }
