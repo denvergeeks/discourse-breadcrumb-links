@@ -1,22 +1,22 @@
 
 <script type="text/discourse-plugin" version="0.8">
 api.onPageChange((url) => {
-    updateBreadcrumbs(url);
+    updateBreadcrumbLinks(url);
 });
 
-const updateBreadcrumbs = (url) => {
-    // Helper function to reset the breadcrumbs container
-    const resetBreadcrumbs = () => {
-        $("#breadcrumbsContainer").empty();
+const updateBreadcrumbLinks = (url) => {
+    // Helper function to reset the breadcrumbLinks container
+    const resetBreadcrumbLinks = () => {
+        $("#breadcrumbLinksContainer").empty();
     
         // If on a Topic page
         if (url.includes('/t/')) {
-            $("#breadcrumbsContainer").append(`
-            <div class="breadcrumbs__container">
-            <ul class="breadcrumbs__links">    
+            $("#breadcrumbLinksContainer").append(`
+            <div class="breadcrumbLinks__container">
+            <ul class="breadcrumbLinks__links">    
                 <li class="home">
                     <a href="/">
-                        <span class="breadcrumbs__title">
+                        <span class="breadcrumbLinks__title">
                             <svg class="fa d-icon d-icon-arrow-right svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#arrow-left"></use></svg>
                         </span>
                     Home</a>
@@ -25,7 +25,7 @@ const updateBreadcrumbs = (url) => {
         }
     };
 
-    resetBreadcrumbs();
+    resetBreadcrumbLinks();
 
     if (url.includes('/t/')) {
         // If on a topic page
@@ -60,7 +60,7 @@ const updateBreadcrumbs = (url) => {
                                                 const parentCategoryURL = `/c/${parentResponse.category.slug}`;
     
                                                 // Append parent category first
-                                                $("ul.breadcrumbs__links").append(`
+                                                $("ul.breadcrumbLinks__links").append(`
                                                     <li class="parent">
                                                         <a href="${parentCategoryURL}">${parentCategoryTitle}</a>
                                                     </li>
@@ -69,7 +69,7 @@ const updateBreadcrumbs = (url) => {
     
                                             const catSubcatURL = `/c/${parentResponse?.category?.slug || ''}/${categoryResponse?.category?.slug || ''}`;
                                             // Append subcategory (or current category)
-                                            $("ul.breadcrumbs__links").append(`
+                                            $("ul.breadcrumbLinks__links").append(`
                                                 <li class="parent">
                                                     <a href="${catSubcatURL}">${categoryTitle}</a>
                                                 </li>
@@ -84,7 +84,7 @@ const updateBreadcrumbs = (url) => {
                                     });
                                 } else {
                                     // No parent category, just append the category and topic
-                                    $("ul.breadcrumbs__links").append(`
+                                    $("ul.breadcrumbLinks__links").append(`
                                         <li class="parent">
                                             <a href="${categoryURL}">${categoryTitle}</a>
                                         </li>
