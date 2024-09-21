@@ -121,7 +121,7 @@ Home
                   <span class="breadcrumbLinks__title">
                     {{dIcon "arrow-left"}}
                   </span>
-Home /
+Home / 
                 </a>
 
               {{/if}}
