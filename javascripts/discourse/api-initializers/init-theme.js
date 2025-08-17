@@ -1,5 +1,6 @@
+import { apiInitializer } from "discourse/lib/api";
 
-<script type="text/discourse-plugin" version="0.8">
+export default apiInitializer((api) => {
 api.onPageChange((url) => {
     updateBreadcrumbs(url);
 });
@@ -111,4 +112,4 @@ const updateBreadcrumbs = (url) => {
         });
     }
 }
-</script>
+});
