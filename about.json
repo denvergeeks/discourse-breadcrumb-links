@@ -3,7 +3,7 @@
   "component": true,
   "license_url": "https://github.com/denvergeeks/discourse-breadcrumb-links/blob/main/LICENSE",
   "about_url": "https://github.com/denvergeeks/discourse-breadcrumb-links/blob/main/README.md",
-  "authors": "@denvergeeks, Manuel Kostka",
+  "authors": "@denvergeeks, @nolo, @Juan_Barreto",
   "theme_version": null,
   "minimum_discourse_version": null,
   "maximum_discourse_version": null,
