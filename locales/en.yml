@@ -6,4 +6,4 @@ en:
       sticky_under_header: Keep breadcrumbs visible at the top of the page when scrolling.
       show_in_admin: Show breadcrumbs on admin pages.
       home_label: Label for the first breadcrumb link (e.g. "Home" or "Forum").
-      home_url: Destination URL for the first breadcrumb link (e.g. "/" or "/c/general").
+      home_url: Destination URL for the first breadcrumb link (e.g. "/" or "/categories").
