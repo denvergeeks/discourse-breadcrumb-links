@@ -1,6 +1,5 @@
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
-import { or } from "truth-helpers";
 import bodyClass from "discourse/helpers/body-class";
 import { defaultHomepage } from "discourse/lib/utilities";
 import Category from "discourse/models/category";
@@ -11,27 +10,47 @@ export default class Breadcrumbs extends Component {
   @service router;
 
   get homePage() {
-    return (
-      this.router.currentRouteName === "discovery.latest" ||
-      this.router.currentRouteName === "discovery.top" ||
-      this.router.currentRouteName === "discovery.new" ||
-      this.router.currentRouteName === "discovery.read" ||
-      this.router.currentRouteName === "discovery.unread" ||
-      this.router.currentRouteName === "discovery.unseen" ||
-      this.router.currentRouteName === "discovery.posted" ||
-      this.router.currentRouteName === "discovery.hot"
-    );
-   return this.router.currentRouteName === `discovery.${defaultHomepage()}`;
+    return this.router.currentRouteName === `discovery.${defaultHomepage()}`;
+  }
+
+  get isTopic() {
+    return this.router.currentRouteName.startsWith("topic");
+  }
+
+  // Topic model is loaded by the "topic" route; currentRoute is the child (e.g. "topic.fromParams")
+  get topicModel() {
+    if (!this.isTopic) return null;
+    const parent = this.router.currentRoute?.parent?.attributes;
+    if (parent?.title !== undefined) return parent;
+    return this.router.currentRoute?.attributes ?? null;
+  }
+
+  get topicCategory() {
+    const id = this.topicModel?.category_id;
+    return id ? Category.findById(id) : null;
+  }
+
+  get topicParentCategory() {
+    return this.topicCategory?.parentCategory ?? null;
+  }
+
+  get topicCategoryLink() {
+    if (!this.topicCategory) return null;
+    return this.topicParentCategory
+      ? `/c/${this.topicParentCategory.slug}/${this.topicCategory.slug}`
+      : `/c/${this.topicCategory.slug}`;
   }
 
   get currentPage() {
-    switch (true) {
+    if (this.isTopic) {
+      return this.topicModel?.title ?? null;
+    }
 
+    switch (true) {
       case this.router.currentRouteName.includes("userPrivateMessages"):
         return i18n("js.groups.messages");
       case this.router.currentRouteName.startsWith("admin"):
         return i18n("js.admin_title");
-
       case this.router.currentRouteName === "userNotifications.responses" ||
         this.router.currentRouteName === "userNotifications.mentions":
         return i18n("js.groups.mentions");
@@ -41,7 +60,8 @@ export default class Breadcrumbs extends Component {
         return i18n("js.docs.title");
       case this.router?.currentRoute?.parent?.name === "preferences":
         return i18n("js.user.preferences.title");
-      case this.router.currentRouteName === "discourse-post-event-upcoming-events.index":
+      case this.router.currentRouteName ===
+        "discourse-post-event-upcoming-events.index":
         return i18n("js.discourse_post_event.upcoming_events.title");
       case this.router?.currentRouteName === "tags.index":
         return i18n("js.tagging.all_tags");
@@ -53,7 +73,12 @@ export default class Breadcrumbs extends Component {
     }
   }
 
+  // For category pages: parent category name. For topic pages: the topic's category name.
   get parentPage() {
+    if (this.isTopic) {
+      return this.topicCategory?.name ?? null;
+    }
+
     switch (true) {
       case this.router.currentRouteName.includes("category") ||
         this.router.currentRouteName.includes("Category"):
@@ -63,37 +88,32 @@ export default class Breadcrumbs extends Component {
     }
   }
 
+  // Only set on topic pages when the topic's category is itself a subcategory.
+  get grandParentPage() {
+    return this.isTopic ? (this.topicParentCategory?.name ?? null) : null;
+  }
+
   get currentCategory() {
-    this.categorySlugPathWithID =
+    const slugPath =
       this.router?.currentRoute?.params?.category_slug_path_with_id;
-    if (this.categorySlugPathWithID) {
-      return Category.findBySlugPathWithID(this.categorySlugPathWithID);
-    }
+    return slugPath ? Category.findBySlugPathWithID(slugPath) : null;
   }
 
   get categoryName() {
-    if (this.currentCategory) {
-      return this.currentCategory.name;
-    }
+    return this.currentCategory?.name ?? null;
   }
 
   get parentCategory() {
-    this.parentCategoryId = this.currentCategory?.parentCategory?.id;
-    if (this.parentCategoryId) {
-      return Category.findById(this.parentCategoryId);
-    }
+    const id = this.currentCategory?.parentCategory?.id;
+    return id ? Category.findById(id) : null;
   }
 
   get parentCategoryName() {
-    if (this.parentCategory) {
-      return this.parentCategory.name;
-    }
+    return this.parentCategory?.name ?? null;
   }
 
   get parentCategoryLink() {
-    if (this.parentCategory) {
-      return this.parentCategory.slug;
-    }
+    return this.parentCategory?.slug ?? null;
   }
 
   <template>
@@ -101,36 +121,44 @@ export default class Breadcrumbs extends Component {
       {{bodyClass "has-breadcrumbs"}}
       <div class="breadcrumbs">
         <div class="breadcrumbs__container">
-
           <ul class="breadcrumbs__links">
+
             <li class="home">
               {{#if this.homePage}}
-
-Home
-
+                Home
               {{else}}
-
                 <a href="/">
                   <span class="breadcrumbs__title">
                     {{dIcon "arrow-left"}}
                   </span>
-Home
+                  Home
                 </a>
-
               {{/if}}
             </li>
 
+            {{! Topic in a subcategory: Home → Parent Cat → Subcat → Topic }}
+            {{#if this.grandParentPage}}
+              <li class="parent">
+                <a href="/c/{{this.topicParentCategory.slug}}">
+                  {{this.grandParentPage}}
+                </a>
+              </li>
+            {{/if}}
+
             {{#if this.parentPage}}
               <li class="parent">
-                <a href="/c/{{this.parentCategoryLink}}">
-                  {{this.parentPage}}</a>
+                {{#if this.isTopic}}
+                  <a href="{{this.topicCategoryLink}}">{{this.parentPage}}</a>
+                {{else}}
+                  <a href="/c/{{this.parentCategoryLink}}">{{this.parentPage}}</a>
+                {{/if}}
               </li>
             {{/if}}
-            {{#if this.currentPage}}
-              <li class="current">
-                {{this.currentPage}}
-              </li>
-            {{/if}}
+
+            <li class="current {{if this.isTopic "topic"}}">
+              {{this.currentPage}}
+            </li>
+
           </ul>
         </div>
       </div>
