@@ -1,5 +1,5 @@
 @if $show_in_admin == "false" {
-  body.admin-area .breadcrumbs {
+  body.admin-interface .breadcrumbs {
     display: none;
   }
 }
