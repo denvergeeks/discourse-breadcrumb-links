@@ -5,6 +5,7 @@ import { defaultHomepage } from "discourse/lib/utilities";
 import Category from "discourse/models/category";
 import dIcon from "discourse-common/helpers/d-icon";
 import i18n from "discourse-common/helpers/i18n";
+import config from "../lib/breadcrumb-config";
 
 export default class Breadcrumbs extends Component {
   @service router;
@@ -116,6 +117,14 @@ export default class Breadcrumbs extends Component {
     return this.parentCategory?.slug ?? null;
   }
 
+  get homeLabel() {
+    return config.homeLabel;
+  }
+
+  get homeUrl() {
+    return config.homeUrl;
+  }
+
   <template>
     {{#if this.currentPage}}
       {{bodyClass "has-breadcrumbs"}}
@@ -125,13 +134,13 @@ export default class Breadcrumbs extends Component {
 
             <li class="home">
               {{#if this.homePage}}
-                Home
+                {{this.homeLabel}}
               {{else}}
-                <a href="/">
+                <a href="{{this.homeUrl}}">
                   <span class="breadcrumbs__title">
                     {{dIcon "arrow-left"}}
                   </span>
-                  Home
+                  {{this.homeLabel}}
                 </a>
               {{/if}}
             </li>

@@ -1,3 +1,9 @@
+@if $show_in_admin == "false" {
+  body.admin-area .breadcrumbs {
+    display: none;
+  }
+}
+
 @if $display_on_mobile == "false" {
   @media (max-width: 1026px) {
     .breadcrumbs,
