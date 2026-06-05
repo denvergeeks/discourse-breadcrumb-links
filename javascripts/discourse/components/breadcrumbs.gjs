@@ -35,6 +35,12 @@ export default class Breadcrumbs extends Component {
     return this.topicCategory?.parentCategory ?? null;
   }
 
+  get topicParentCategoryLink() {
+    return this.topicParentCategory
+      ? `/c/${this.topicParentCategory.slug}`
+      : null;
+  }
+
   get topicCategoryLink() {
     if (!this.topicCategory) return null;
     return this.topicParentCategory
@@ -57,14 +63,14 @@ export default class Breadcrumbs extends Component {
         return i18n("js.groups.mentions");
       case this.router.currentRouteName === "userActivity.bookmarks":
         return i18n("js.user.bookmarks");
-      case this.router?.currentRoute?.parent?.name === "docs":
+      case this.router.currentRoute?.parent?.name === "docs":
         return i18n("js.docs.title");
-      case this.router?.currentRoute?.parent?.name === "preferences":
+      case this.router.currentRoute?.parent?.name === "preferences":
         return i18n("js.user.preferences.title");
       case this.router.currentRouteName ===
         "discourse-post-event-upcoming-events.index":
         return i18n("js.discourse_post_event.upcoming_events.title");
-      case this.router?.currentRouteName === "tags.index":
+      case this.router.currentRouteName === "tags.index":
         return i18n("js.tagging.all_tags");
       case this.router.currentRouteName.includes("Category") ||
         this.router.currentRouteName.includes("category"):
@@ -96,7 +102,7 @@ export default class Breadcrumbs extends Component {
 
   get currentCategory() {
     const slugPath =
-      this.router?.currentRoute?.params?.category_slug_path_with_id;
+      this.router.currentRoute?.params?.category_slug_path_with_id;
     return slugPath ? Category.findBySlugPathWithID(slugPath) : null;
   }
 
@@ -148,7 +154,7 @@ export default class Breadcrumbs extends Component {
             {{! Topic in a subcategory: Home → Parent Cat → Subcat → Topic }}
             {{#if this.grandParentPage}}
               <li class="parent">
-                <a href="/c/{{this.topicParentCategory.slug}}">
+                <a href="{{this.topicParentCategoryLink}}">
                   {{this.grandParentPage}}
                 </a>
               </li>

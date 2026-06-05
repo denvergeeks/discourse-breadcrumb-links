@@ -56,6 +56,8 @@
   }
 }
 
-li.current.topic {
-  display: none; /* excludes the current Topic title from the breadcrumb */
+@if $show_topic_title == "false" {
+  li.current.topic {
+    display: none;
+  }
 }

@@ -13,3 +13,6 @@ home_label:
 home_url:
   type: string
   default: "/"
+show_topic_title:
+  type: bool
+  default: false
