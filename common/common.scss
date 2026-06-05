@@ -6,25 +6,17 @@
 
 @if $display_on_mobile == "false" {
   @media (max-width: 1026px) {
-    .breadcrumbs,
-    .discourse-breadcrumb-links,
-    #breadcrumbsContainer {
+    .breadcrumbs {
       display: none !important;
     }
   }
 }
 
 @if $sticky-under-header == "true" {
-    .breadcrumbs,
-    .discourse-breadcrumb-links,
-    #breadcrumbsContainer {
-      position: sticky !important;
-      top: calc(var(--header-offset)) !important;
-    }
-}
-
-.discourse-breadcrumb-links {
-  z-index: 101;
+  .breadcrumbs {
+    position: sticky !important;
+    top: calc(var(--header-offset)) !important;
+  }
 }
 
 .breadcrumbs {
@@ -33,7 +25,6 @@
   border-radius: var(--d-border-radius);
   margin-bottom: 0.5rem;
   &__container {
-    /* min-height: 3em; */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -51,7 +42,6 @@
     display: flex;
     list-style: none;
     margin: .2em;
-    /* gap: 0.5em; */
     a {
       color: var(--tertiary);
       &:hover {
@@ -66,57 +56,6 @@
   }
 }
 
-#breadcrumbsContainer {
-  z-index: 101;
-  background: var(--primary-low);
-  border-radius: var(--d-border-radius);
-  margin-bottom: 0.5rem;
-/*  padding: .4rem 0 .2rem; */
-
-  &__container {
- min-height: 3em;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 0.25em;
-    color: var(--primary-medium);
-    font-size: 15px;
-    gap: 0.5em;
-  }
-  &__title {
-    .d-icon {
-      font-size: 13px;
-      padding-left: 0.25em;
-    }
-  }
-  &__links {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    /* gap: 0.5em; */
-    a {
-      color: var(--tertiary);
-      &:hover {
-        color: var(--tertiary);
-      }
-    }
-    .home::after,
-    .parent::after,
-    .current::after {
-      content: "/\00a0";
-    }
-  }
-}
-
-
-
-
-
-body.has-breadcrumbs #breadcrumbsContainer,
-li.current.topic, /* excludes the current Topic title from the breadcrumb */
-.static-login #breadcrumbsContainer,
-.has-full-page-chat #breadcrumbsContainer,
-.chat-drawer-active #breadcrumbsContainer,
-.chat-drawer-active .chat-drawer-expanded #breadcrumbsContainer {
-  display: none;
+li.current.topic {
+  display: none; /* excludes the current Topic title from the breadcrumb */
 }
