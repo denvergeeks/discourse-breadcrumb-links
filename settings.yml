@@ -4,3 +4,15 @@ display_on_mobile:
 sticky_under_header:
   type: bool
   default: false
+show_in_admin:
+  type: bool
+  default: true
+home_label:
+  type: string
+  default: "Home"
+home_url:
+  type: string
+  default: "/"
+show_topic_title:
+  type: bool
+  default: false
