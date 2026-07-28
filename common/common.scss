@@ -48,10 +48,9 @@
         color: var(--tertiary);
       }
     }
-    .home::after,
-    .parent::after,
-    .current::after {
-      content: "/\00a0";
+    .parent::before,
+    .current::before {
+      content: "\00a0\00B7";
     }
   }
 }
