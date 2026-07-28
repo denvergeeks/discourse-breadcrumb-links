@@ -50,7 +50,7 @@
     }
     .parent::before,
     .current::before {
-      content: "\00a0\00B7";
+      content: "/\00a0";
     }
   }
 }
