@@ -10,7 +10,7 @@ show_in_admin:
 svg_icons:
   type: list
   list_type: compact
-  default: left-arrow|house
+  default: arrow-left|house
 home_icon:
   type: string
   default: house
