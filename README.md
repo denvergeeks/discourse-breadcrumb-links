@@ -1,4 +1,4 @@
-# Breadcrumb Links
+# Discourse Breadcrumb Links
 
 ### A Discourse theme component which adds breadcrumb navigation links above the main container. Any and all PRs are most welcome!
 
