@@ -7,9 +7,13 @@ sticky_under_header:
 show_in_admin:
   type: bool
   default: true
+svg_icons:
+  type: list
+  list_type: compact
+  default: left-arrow|house
 home_icon:
   type: string
-  default: "d-icon-house"
+  default: house
 home_label:
   type: string
   default: "Home"
