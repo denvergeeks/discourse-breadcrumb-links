@@ -49,7 +49,7 @@
       }
     }
     .parent::before,
-    .current::before
+    .current::before,
     .current::after {
       content: "\00a0 /";
     }
