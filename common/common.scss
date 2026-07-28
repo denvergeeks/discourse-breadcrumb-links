@@ -17,6 +17,9 @@
     position: sticky !important;
     top: calc(var(--header-offset)) !important;
   }
+  .topic-post.sticky-avatar > article > .row > .topic-avatar {
+    top: calc(var(--header-offset) + 25px);
+  }
 }
 
 .breadcrumbs {
