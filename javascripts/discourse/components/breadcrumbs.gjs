@@ -123,6 +123,10 @@ export default class Breadcrumbs extends Component {
     return this.parentCategory?.slug ?? null;
   }
 
+  get homeIcon() {
+    return config.homeUrl;
+  }
+
   get homeLabel() {
     return config.homeLabel;
   }
