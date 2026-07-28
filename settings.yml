@@ -7,6 +7,13 @@ sticky_under_header:
 show_in_admin:
   type: bool
   default: true
+svg_icons:
+  type: list
+  list_type: compact
+  default: "arrow-left|house|discourse-icon|fab-discourse|tooltip-icon|up-right-from-square|link|discourse-expand|message|far-comment|comment|archive-org-icon|discobot|user-secret|eye|fab-wikipedia-w|globe|paper-plane|circle-question|far-circle-question|circle-info|info|triangle-exclamation|share|thumbtack|star|sun"
+home_icon:
+  type: objects
+  default: house
 home_label:
   type: string
   default: "Home"
