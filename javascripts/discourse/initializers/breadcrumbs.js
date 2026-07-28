@@ -1,5 +1,4 @@
 import { apiInitializer } from "discourse/lib/api";
-import dIcon from "discourse-common/helpers/d-icon";
 import BreadCrumbs from "../components/breadcrumbs";
 import config from "../lib/breadcrumb-config";
 
