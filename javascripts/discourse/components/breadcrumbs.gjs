@@ -144,6 +144,7 @@ export default class Breadcrumbs extends Component {
               {{else}}
                 <a href="{{this.homeUrl}}">
                   {{dIcon "arrow-left"}}
+                  {{this.homeIcon}}
                   {{this.homeLabel}}
                 </a>
               {{/if}}
