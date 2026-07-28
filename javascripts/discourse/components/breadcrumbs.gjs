@@ -124,7 +124,7 @@ export default class Breadcrumbs extends Component {
   }
 
   get homeIcon() {
-    return config.homeUrl;
+    return config.homeIcon;
   }
 
   get homeLabel() {
